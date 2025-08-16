@@ -98,7 +98,7 @@ def main():
                         if (result["classname"] == "info_player_terrorist" or result["classname"] == "info_player_counterterrorist") and result["priority"] == "0":
                             if "targetname" in result:
                                 """ print(full_block) """
-                                if "standard" in result["targetname"]:
+                                if "standard" in result["targetname"] or ("train" in map_name and "test" in result["targetname"]):
                                     """ print(full_block) """
                                     blocks.append(full_block)
                                     if "info_player_terrorist" in result["classname"]:
