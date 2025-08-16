@@ -4,10 +4,11 @@ import re
 from decimal import Decimal
 
 
+autoexecs_path = Path("./cfgs")
 cli_path = Path("./cli/Source2Viewer-CLI.exe")
 cs_path = Path('C:\\Program Files (x86)\\Steam\\steamapps\\common\\Counter-Strike Global Offensive\\game\\csgo\\maps')
-""" maps_to_search = ['de_ancient', 'de_dust2', 'de_mirage', 'de_nuke', 'de_overpass', 'de_train', 'de_inferno'] """
-maps_to_search = ['de_mirage', 'de_overpass']
+maps_to_search = ['de_ancient', 'de_dust2', 'de_mirage', 'de_nuke', 'de_overpass', 'de_train', 'de_inferno']
+""" maps_to_search = ['de_mirage', 'de_overpass'] """
 
 start_level = 5 - 1
 
@@ -42,6 +43,7 @@ def parse_values(data_string):
 
 
 def list_to_bind(spawn_list, angle_list):
+    return_string = ""
     for idx, x in enumerate(spawn_list):
         raw_spawn = spawn_list[idx]
         spawn_list_split = raw_spawn.split(" ")
@@ -53,7 +55,8 @@ def list_to_bind(spawn_list, angle_list):
         parsed_angle_list = [int(Decimal(x)) for x in stripped_angle_list]
         angle_string = ' '.join(map(str, parsed_angle_list))
 
-        print(f"alias spawn_{idx+1} \"setpos {spawn_string};setang {angle_string}\"", end=';')
+        return_string = f"{return_string}alias spawn_{idx+1} \"setpos {spawn_string};setang {angle_string}\";"
+    return return_string
 
 
 def main():
@@ -121,12 +124,17 @@ def main():
         print("-------")
         print("Terrorist")
         print("-------")
-        list_to_bind(spawn_positions_t, spawn_angles_t)
+        print(list_to_bind(spawn_positions_t, spawn_angles_t))
+
+        with open(autoexecs_path / f"{map_name}_t_spawns.cfg", "w") as f:
+            f.write("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
         print("\n\n")
         print("-------")
         print("Counter Terrorist")
         print("-------")
-        list_to_bind(spawn_positions_ct, spawn_angles_ct)
+        print(list_to_bind(spawn_positions_ct, spawn_angles_ct))
+        with open(autoexecs_path / f"{map_name}_ct_spawns.cfg", "w") as f:
+            f.write("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
         print("\n\n")
 
         spawn_positions_t.clear()
@@ -136,6 +144,8 @@ def main():
 
     print("Unbind:")
     print("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
+    with open(autoexecs_path / "unbind_all_spawns.cfg", "w") as f:
+        f.write("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
 
 
 if __name__ == "__main__":
