@@ -97,6 +97,7 @@ def main():
                         result = parse_values(full_block)
                         if (result["classname"] == "info_player_terrorist" or result["classname"] == "info_player_counterterrorist") and result["priority"] == "0":
                             if "targetname" in result:
+                                """ print(full_block) """
                                 if "standard" in result["targetname"]:
                                     """ print(full_block) """
                                     blocks.append(full_block)
@@ -127,14 +128,14 @@ def main():
         print(list_to_bind(spawn_positions_t, spawn_angles_t))
 
         with open(autoexecs_path / f"{map_name}_t_spawns.cfg", "w") as f:
-            f.write("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
+            f.write(list_to_bind(spawn_positions_t, spawn_angles_t))
         print("\n\n")
         print("-------")
         print("Counter Terrorist")
         print("-------")
         print(list_to_bind(spawn_positions_ct, spawn_angles_ct))
         with open(autoexecs_path / f"{map_name}_ct_spawns.cfg", "w") as f:
-            f.write("alias spawn_1 "";alias spawn_2 "";alias spawn_3 "";alias spawn_4 "";alias spawn_5 "";alias spawn_6 "";alias spawn_7 "";alias spawn_8 "";alias spawn_9 "";alias spawn_10 "";alias spawn_11 "";alias spawn_12 "";alias spawn_13 "";alias spawn_14 "";alias spawn_15 "";")
+            f.write(list_to_bind(spawn_positions_ct, spawn_angles_ct))
         print("\n\n")
 
         spawn_positions_t.clear()
